@@ -38,10 +38,9 @@ public class ShoppApplication {
 	}
 
 	@Bean
-	public ErrorPageRegistrar errorPageRegistrar() {
-		return (ErrorPageRegistry epr) -> {
+	public ErrorPageRegistrar errorPageRegistrar() {			//Not need this?
+		return (ErrorPageRegistry epr) ->
 			epr.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/index.html"));
-		};
 	}
 
 }
