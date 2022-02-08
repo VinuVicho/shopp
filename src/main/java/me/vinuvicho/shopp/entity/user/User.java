@@ -1,6 +1,7 @@
 package me.vinuvicho.shopp.entity.user;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,12 +11,11 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
-
-@SuppressWarnings("JpaDataSourceORMInspection")         //prob to delete (just remove warning)
 @Getter
 @Setter
 @ToString
 @Entity
+@NoArgsConstructor
 @Table(name = "users")                              //user -- ключове слово в Postgre
 public class User implements UserDetails {
     //TODO: notifications
@@ -36,13 +36,19 @@ public class User implements UserDetails {
     private String about = null;
     private LocalDateTime createdAt = null;
     private LocalDateTime lastActivity = null;
-    private boolean collapseMessages = false;
 
     @ToString.Exclude
     private boolean locked = false;
     @ToString.Exclude
     private boolean enabled = false;
 
+    public User(String username, String email, String password, UserRole userRole) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.userRole = userRole;
+        this.createdAt = LocalDateTime.now();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
